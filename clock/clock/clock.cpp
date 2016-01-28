@@ -2,6 +2,7 @@
 #include "sheet.h"
 #include "clock.hpp"
 
+// TODO: new file with "garbage"
 time_t getSystemTime(void)
 {
 	return std::time(NULL);
@@ -26,8 +27,7 @@ void enterTimeLoop(void)
 
 	Clock clock;
 	clock.preparation();
-	clock.setSysTime(getSystemTime()); // TODO: -> mainLoop
-
+	
 	mainLoop(window, clock);
 }
 

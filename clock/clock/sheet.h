@@ -4,6 +4,7 @@
 #include <ctime>
 #include <cmath>
 
+// TODO: new file(clock.h)
 struct Clock
 {
 public:
@@ -17,10 +18,15 @@ private:
 	int getMin();
 	int getSec();
 	void render(sf::RenderWindow & window);
+	void update();
 
 	time_t sysTime;
 	struct tm locTime;
 	sf::CircleShape clockCircle;
+	sf::CircleShape centerCircle;
+	sf::RectangleShape secArrow;
+	sf::RectangleShape minArrow;
+	sf::RectangleShape hourArrow;
 };
 
 time_t getSystemTime(void);

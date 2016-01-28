@@ -210,3 +210,4 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 /clock/clock/Release/clock.tlog
+/clock/clock/*.vcxproj
