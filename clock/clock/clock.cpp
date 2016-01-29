@@ -10,9 +10,15 @@ time_t getSystemTime(void)
 
 void mainLoop(sf::RenderWindow & window, Clock & clock)
 {
+	sf::Event event;
+
 	while (window.isOpen())
 	{
 		clock.frameFunc(window);
+		if ((window.pollEvent(event)) && (event.type == sf::Event::Closed)) // TODO: new function
+		{
+			window.close();
+		}
 	}
 }
 
@@ -31,7 +37,7 @@ void enterTimeLoop(void)
 	mainLoop(window, clock);
 }
 
-int main()
+int main(void)
 {
 	enterTimeLoop();
 	return 0;

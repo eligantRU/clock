@@ -8,8 +8,6 @@ void Clock::setSysTime(time_t sysTime)
 
 void Clock::frameFunc(sf::RenderWindow & window)
 {
-	// TODO: check events(e.x. window.close)
-	// TODO: no debug console
 	Clock::setSysTime(getSystemTime());
 	Clock::setLocTime();
 	Clock::update();
