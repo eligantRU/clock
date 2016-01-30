@@ -9,7 +9,8 @@
 
 #include <stdio.h>
 #include <tchar.h>
-
+#include <ctime>
+#include <cmath>
 
 
 // TODO: reference additional headers your program requires here
