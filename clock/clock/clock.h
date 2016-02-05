@@ -9,14 +9,14 @@ public:
 	void frameFunc(sf::RenderWindow & window);
 	void setClockCircle(sf::CircleShape & clockCircle);
 	void initialize(void);
+	void render(sf::RenderWindow & window);
+	void update();
 private:
 	void setLocTime();
 	int getHour();
 	int getMin();
 	int getSec();
-	void render(sf::RenderWindow & window);
-	void update();
-	void setFont(void);
+	void setupFont(void);
 
 	time_t sysTime;
 	struct tm locTime;

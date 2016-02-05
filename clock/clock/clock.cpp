@@ -12,18 +12,16 @@ void Clock::frameFunc(sf::RenderWindow & window)
 {
 	Clock::setSysTime(getSystemTime());
 	Clock::setLocTime();
-	Clock::update();
-	Clock::render(window);
 }
 
 void Clock::update()
 {
-	Clock::secArrow.setRotation(float(Clock::getSec() * 6 - 90)); // 360 (rad) / 60 (ones) = 6
-	Clock::minArrow.setRotation(float(Clock::getMin() * 6 - 90)); // TODO: -90 & -75 -- added constants
-	Clock::hourArrow.setRotation(float(Clock::getHour() * 30) + float(Clock::getMin() / 2) - 90); // Similarly
+	secArrow.setRotation(float(Clock::getSec() * 6 - 90)); // 360 (rad) / 60 (ones) = 6
+	minArrow.setRotation(float(Clock::getMin() * 6 - 90)); // TODO: -90 & -75 -- added constants
+	hourArrow.setRotation(float(Clock::getHour() * 30) + float(getMin() / 2) - 90); // Similarly
 }
 
-void Clock::setFont(void)
+void Clock::setupFont(void)
 {
 	if (!Clock::font.loadFromFile("arial.ttf"))
 	{
@@ -34,7 +32,7 @@ void Clock::setFont(void)
 
 void Clock::initialize(void)
 {
-	Clock::setFont();
+	Clock::setupFont();
 
 	Clock::setClockCircle(clockCircle);
 

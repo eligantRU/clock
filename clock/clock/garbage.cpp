@@ -14,6 +14,8 @@ void mainLoop(sf::RenderWindow & window)
 	while (window.isOpen())
 	{
 		clock.frameFunc(window);
+		clock.update();
+		clock.render(window);
 		checkClick(window);
 	}
 }
