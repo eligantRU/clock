@@ -1,25 +1,36 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <string>
 
 struct Clock
 {
 public:
 	void setSysTime(time_t sysTime);
-	void frameFunc(sf::RenderWindow & window);
-	void setClockCircle(sf::CircleShape & clockCircle);
+	void setLocTime(void);
 	void initialize(void);
 	void render(sf::RenderWindow & window);
-	void update();
+	void update(void);
 private:
-	void setLocTime();
-	int getHour();
-	int getMin();
-	int getSec();
+	void setClockCircle(sf::CircleShape & clockCircle);
+	void setCenterCircle(sf::CircleShape & centerCircle);
+	void setSecArrow(sf::RectangleShape & secArrow);
+	void setMinArrow(sf::RectangleShape & minArrow);
+	void setHourArrow(sf::RectangleShape & hourArrow);
+	void setCirclesSec(sf::CircleShape * circlesSec);
+	void setCirclesHour(sf::CircleShape * circlesHour);
+	void setNumHour(sf::Text * numHour);
+	int getHour(void);
+	int getMin(void);
+	int getSec(void);
 	void setupFont(void);
+	void correctPosition(std::string str, sf::Vector2f & position);
+	void setCirclesSecCoordinates(sf::Vector2f & coordinates, int & sec);
+	void setCirclesHourCoordinates(sf::Vector2f & coordinates, int & hour);
+	void setNumHourCoordinates(sf::Vector2f & coordinates, int & numHour);
 
 	time_t sysTime;
-	struct tm locTime;
+	tm locTime;
 	sf::CircleShape clockCircle;
 	sf::CircleShape centerCircle;
 	sf::RectangleShape secArrow;

@@ -3,12 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include "clock.h"
 #include <ctime>
-#include <cmath>
+#include <string>
 
 time_t getSystemTime(void);
 
 void enterTimeLoop(void);
 
-void checkClick(sf::RenderWindow & window);
+void checkEvents(sf::RenderWindow & window);
 
 void mainLoop(sf::Window & window);

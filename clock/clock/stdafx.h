@@ -9,8 +9,9 @@
 
 #include <stdio.h>
 #include <tchar.h>
-#include <ctime>
+#define _USE_MATH_DEFINES
 #include <cmath>
+#include <ctime>
 
 
 // TODO: reference additional headers your program requires here

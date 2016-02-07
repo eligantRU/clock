@@ -13,14 +13,16 @@ void mainLoop(sf::RenderWindow & window)
 
 	while (window.isOpen())
 	{
-		clock.frameFunc(window);
+		checkEvents(window);
+		clock.setSysTime(getSystemTime());
+		clock.setLocTime();
 		clock.update();
 		clock.render(window);
-		checkClick(window);
+		window.display();
 	}
 }
 
-void checkClick(sf::RenderWindow & window)
+void checkEvents(sf::RenderWindow & window)
 {
 	sf::Event event;
 
