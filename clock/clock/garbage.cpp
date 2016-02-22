@@ -10,12 +10,11 @@ void mainLoop(sf::RenderWindow & window)
 {
 	Clock clock;
 	clock.initialize();
-
+	
 	while (window.isOpen())
 	{
 		checkEvents(window);
-		clock.setSysTime(getSystemTime());
-		clock.setLocTime();
+		clock.setTime(getSystemTime());
 		clock.update();
 		clock.render(window);
 		window.display();
@@ -24,7 +23,7 @@ void mainLoop(sf::RenderWindow & window)
 
 void checkEvents(sf::RenderWindow & window)
 {
-	sf::Event event;
+	sf::Event event;	
 
 	if ((window.pollEvent(event)) && (event.type == sf::Event::Closed))
 	{
@@ -42,4 +41,9 @@ void enterTimeLoop(void)
 	window.setFramerateLimit(60);
 	
 	mainLoop(window);
+}
+
+float degree2Radaian(int degree)
+{
+	return float((degree * M_PI / 180));
 }
