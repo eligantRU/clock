@@ -1,18 +1,15 @@
 #include "stdafx.h"
-#define _USE_MATH_DEFINES
-#include <cmath>
-#include "sheet.h"
-#include <windows.h>
+#include "sheet.h"	
 
-void Clock::setSysTime(time_t sysTime)
+void Clock::setTime(time_t sysTime)
 {
-	Clock::sysTime = sysTime; // joke: remove "Clock::" & stop the time =)
+	localtime_s(&locTime, &sysTime);
 }
 
 void Clock::update(void)
 {
 	secArrow.setRotation(float(getSec() * 6 - 90)); // 360 (rad) / 60 (ones) = 6
-	minArrow.setRotation(float(getMin() * 6 - 90)); // TODO: -90 & -75 -- added constants
+	minArrow.setRotation(float(getMin() * 6 - 90)); // -90 & -75 -- added constants
 	hourArrow.setRotation(float(getHour() * 30) + float( getMin() / 2) - 90); // Similarly
 }
 
@@ -25,7 +22,7 @@ void Clock::setupFont(void)
 	}
 }
 
-void Clock::correctPosition(std::string str, sf::Vector2f & position)
+void Clock::fixPosition(const std::string & str, sf::Vector2f & position)
 {
 	if (str.length() > 1)
 	{
@@ -35,20 +32,20 @@ void Clock::correctPosition(std::string str, sf::Vector2f & position)
 
 void Clock::setCirclesSecCoordinates(sf::Vector2f & coordinates, int & sec)
 {
-	coordinates.x = 200.f - 2.f + 180.f * float(cos(6 * sec * M_PI / 180)); // 6 = 360 / 60
-	coordinates.y = 200.f - 2.f + 180.f * float(sin(6 * sec * M_PI / 180)); // 200 -- R(big), 180 -- R(s), 4 -- R(circlesSec)
+	coordinates.x = 200.f - 2.f + 180.f * cos(degree2Radaian(6 * sec)); // 6 = 360 / 60
+	coordinates.y = 200.f - 2.f + 180.f * sin(degree2Radaian(6 * sec)); // 200 -- R(big), 180 -- R(s), 4 -- R(circlesSec)
 }
 
 void Clock::setCirclesHourCoordinates(sf::Vector2f & coordinates, int & hour)
 {
-	coordinates.x = 200.f - 4.f + 180.f * float(cos(30 * hour * M_PI / 180)); // 30 = 360 / 12
-	coordinates.y = 200.f - 4.f + 180.f * float(sin(30 * hour * M_PI / 180)); // 200 -- R(big), 180 -- R(s), 4 -- R(circlesHour)
+	coordinates.x = 200.f - 4.f + 180.f * cos(degree2Radaian(30 * hour)); // 30 = 360 / 12
+	coordinates.y = 200.f - 4.f + 180.f * sin(degree2Radaian(30 * hour)); // 200 -- R(big), 180 -- R(s), 4 -- R(circlesHour)
 }
 
 void Clock::setNumHourCoordinates(sf::Vector2f & coordinates, int & numHour)
 {
-	coordinates.x = 200.f - 6.f - 155 * float(sin(30 * numHour * M_PI / 180 + 7 * M_PI / 6)); // 30 = 360 / 12
-	coordinates.y = 200.f - 12.f + 155.f * float(cos(30 * numHour * M_PI / 180 + 7 * M_PI / 6));
+	coordinates.x = 200.f - 6.f - 155.f * sin(degree2Radaian(30 * numHour + 210)); // 30 = 360 / 12
+	coordinates.y = 200.f - 12.f + 155.f * cos(degree2Radaian(30 * numHour + 210));
 }
 
 void Clock::setCenterCircle(sf::CircleShape & centerCircle)
@@ -126,7 +123,7 @@ void Clock::setNumHour(sf::Text * numHour)
 		sf::Vector2f numHourPosition(0.f, 0.f);
 
 		setNumHourCoordinates(numHourPosition, i);
-		correctPosition(std::to_string(i + 1), numHourPosition);
+		fixPosition(std::to_string(i + 1), numHourPosition);
 		numHour[i].setPosition(numHourPosition);
 	}
 }
@@ -151,11 +148,6 @@ void Clock::setClockCircle(sf::CircleShape & clockCircle)
 	clockCircle.setRadius(200);
 	clockCircle.setFillColor(sf::Color(255, 255, 255));
 	clockCircle.setPointCount(100);
-}
-
-void Clock::setLocTime(void)
-{
-	localtime_s(&locTime, &sysTime);
 }
 
 int Clock::getHour(void)

@@ -1,13 +1,11 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <string>
 
 struct Clock
 {
 public:
-	void setSysTime(time_t sysTime);
-	void setLocTime(void);
+	void setTime(time_t sysTime);
 	void initialize(void);
 	void render(sf::RenderWindow & window);
 	void update(void);
@@ -24,12 +22,11 @@ private:
 	int getMin(void);
 	int getSec(void);
 	void setupFont(void);
-	void correctPosition(std::string str, sf::Vector2f & position);
+	void fixPosition(const std::string & str, sf::Vector2f & position);
 	void setCirclesSecCoordinates(sf::Vector2f & coordinates, int & sec);
 	void setCirclesHourCoordinates(sf::Vector2f & coordinates, int & hour);
 	void setNumHourCoordinates(sf::Vector2f & coordinates, int & numHour);
 
-	time_t sysTime;
 	tm locTime;
 	sf::CircleShape clockCircle;
 	sf::CircleShape centerCircle;
